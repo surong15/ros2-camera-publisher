@@ -197,28 +197,34 @@ class Extension(omni.ext.IExt):
         """檢查 rosbridge_websocket 狀態"""
         def check_in_background():
             try:
-                # 嘗試連接到 rosbridge websocket
-                import websocket
+                # 使用簡單的 socket 測試代替 WebSocket
+                import socket
                 
-                def on_open(ws):
-                    self.rosbridge_status = "Connected"
-                    self._update_rosbridge_status("✅ Connected")
-                    ws.close()
+                # 解析 rosbridge URL
+                url_parts = self.rosbridge_url.replace('ws://', '').split(':')
+                host = url_parts[0]
+                port = int(url_parts[1]) if len(url_parts) > 1 else 9090
                 
-                def on_error(ws, error):
+                # 測試 TCP 連接
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(3)
+                
+                try:
+                    result = sock.connect_ex((host, port))
+                    if result == 0:
+                        self.rosbridge_status = "Connected"
+                        self._update_rosbridge_status("✅ Connected")
+                    else:
+                        self.rosbridge_status = "Connection refused"
+                        self._update_rosbridge_status("❌ Connection refused")
+                except socket.timeout:
+                    self.rosbridge_status = "Timeout"
+                    self._update_rosbridge_status("⏱️ Connection timeout")
+                except Exception as e:
                     self.rosbridge_status = "Error"
-                    self._update_rosbridge_status("❌ Connection failed")
-                
-                def on_close(ws, close_status_code, close_msg):
-                    pass
-                
-                ws = websocket.WebSocketApp(self.rosbridge_url,
-                    on_open=on_open,
-                    on_error=on_error,
-                    on_close=on_close)
-                
-                # 設置超時
-                ws.run_forever(timeout=3)
+                    self._update_rosbridge_status(f"❌ Error: {str(e)[:20]}")
+                finally:
+                    sock.close()
                 
             except ImportError:
                 # 如果沒有 websocket 模組，嘗試簡單的 HTTP 檢查
