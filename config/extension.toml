@@ -1,0 +1,26 @@
+# isaac.camera.ros2.publisher/config/extension.toml
+[core]
+reloadable = true
+order = 0
+
+[package]
+version = "1.0.0"
+category = "Streaming"
+title = "ROS2 Camera Publisher"
+description = "Pure ROS2 camera publisher for Isaac Sim"
+authors = ["Your Name"]
+repository = ""
+keywords = ["ros2", "camera", "publisher"]
+changelog = "Initial version"
+readme = "README.md"
+preview_image = ""
+icon = ""
+
+[dependencies]
+"omni.isaac.core" = {}
+"omni.isaac.sensor" = {}
+"omni.replicator.core" = {}
+"omni.syntheticdata" = {}
+
+[[python.module]]
+name = "camera_publisher_python"
