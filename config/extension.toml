@@ -8,7 +8,7 @@ version = "1.0.0"
 category = "Streaming"
 title = "ROS2 Camera Publisher"
 description = "Pure ROS2 camera publisher for Isaac Sim"
-authors = ["Your Name"]
+authors = ["Ying-Rong Su"]
 repository = ""
 keywords = ["ros2", "camera", "publisher"]
 changelog = "Initial version"
@@ -24,3 +24,4 @@ icon = ""
 
 [[python.module]]
 name = "camera_publisher_python"
+
