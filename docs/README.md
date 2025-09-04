@@ -5,7 +5,7 @@
 ---
 
 ## 📦 功能
-- 將 Isaac Sim 相機影像發布到 **ROS2 Topic**（預設：`/baymax/camera/image_raw`）  
+- 將 Isaac Sim 相機影像發布到 **ROS2 Topic**（預設：`/ROBOTNAME/camera/image_raw`）  
 - 內建 UI，可視化控制：
   - 開始/停止發布  
   - 修改 Topic 名稱、頻率、rosbridge URL  
@@ -40,7 +40,7 @@
    - 在 ROS2 環境中輸入：  
      ```bash
      ros2 topic list
-     ros2 topic echo /baymax/camera/image_raw
+     ros2 topic echo /ROBOTNAME/camera/image_raw
      ```
    - 若使用 `rosbridge_websocket`，可從瀏覽器或其他 WebSocket 客戶端訂閱  
 
@@ -53,7 +53,7 @@
 
 ### 1. 相機路徑
 ```python
-self.target_camera_path = "/World/Demo_8F/_R05D00002_only_bottom_sim_/tn__7R05D00002_only_bottom_sim_/Camera_baymax"
+self.target_camera_path = "/World/Demo_8F/_R05D00002_only_bottom_sim_/tn__7R05D00002_only_bottom_sim_/Camera_ROBOTNAME"
 ```
 - 這是 Isaac Sim 場景中 **Camera 的路徑**。  
 - 請改成你自己的 Camera prim 的路徑。  
@@ -63,7 +63,7 @@ self.target_camera_path = "/World/Demo_8F/_R05D00002_only_bottom_sim_/tn__7R05D0
 
 ### 2. ROS2 Topic
 ```python
-self.ros2_topic = "/baymax/camera/image_raw"
+self.ros2_topic = "/ROBOTNAME/camera/image_raw"
 ```
 - 修改成你要發布的 topic 名稱，例如：  
   - `/camera/front/image_raw`  
@@ -85,7 +85,7 @@ self.ros2_publishing_frequency = 10
 
 ### 4. Frame ID
 ```python
-self.ros2_camera_frame_id = "camera_baymax"
+self.ros2_camera_frame_id = "camera_ROBOTNAME"
 ```
 - 每個 ROS2 影像訊息都會帶有 `std_msgs/Header.frame_id`，下游模組會用來識別資料來源。  
 - 如果有多個相機，請修改為不同的名稱，例如：  
