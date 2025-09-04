@@ -1,5 +1,5 @@
 # Isaac Sim ROS2 Camera Publisher Extension (Pure Publisher)
-# 職責：將 Isaac Sim ROS camera 發布到 ROS2 話題 /baymax/camera/image_raw
+# 職責：將 Isaac Sim ROS camera 發布到 ROS2 話題 /ROBOTNAME/camera/image_raw
 # 支援 rosbridge_websocket 即時串流
 
 import omni.ext
@@ -37,7 +37,7 @@ class Extension(omni.ext.IExt):
     def on_startup(self, ext_id):
         print("[isaac.camera.ros2.publisher] Isaac Sim ROS2 Camera Publisher Extension")
         print("🎯 Mode: Pure Publisher - Isaac Sim Camera → ROS2 Topic")
-        print("📡 Target Topic: /baymax/camera/image_raw")
+        print("📡 Target Topic: /ROBOTNAME/camera/image_raw")
         print("🌐 Compatible with rosbridge_websocket")
         
         # Initialize variables
@@ -53,11 +53,11 @@ class Extension(omni.ext.IExt):
         
         # Settings
         self.ros2_publishing_frequency = 10  # Hz
-        self.ros2_camera_frame_id = "camera_baymax" # TODO
-        self.ros2_topic = "/baymax/camera/image_raw" # TODO
+        self.ros2_camera_frame_id = "camera_ROBOTNAME" # TODO
+        self.ros2_topic = "/ROBOTNAME/camera/image_raw" # TODO
         
         # Target camera path in Isaac Sim
-        self.target_camera_path = "/World/Demo_8F/_R05D00002_only_bottom_sim_/tn__7R05D00002_only_bottom_sim_/Camera_baymax" # TODO
+        self.target_camera_path = "/World/Demo_8F/_R05D00002_only_bottom_sim_/tn__7R05D00002_only_bottom_sim_/Camera_ROBOTNAME" # TODO
         
         # rosbridge status
         self.rosbridge_url = "ws://localhost:9090"
